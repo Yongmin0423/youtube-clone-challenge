@@ -1,27 +1,103 @@
 header
-    a(href="/")
-        i.fab.fa-youtube
-    nav
-        ul
-            li
-                 a(href="/search") Search
-            if loggedIn
-                li
-                    a(href="/videos/upload") Upload Video
-                li
-                    a(href=`/users/${loggedInUser._id}`) My Profile
-                li
-                    a(href="/users/edit") Edit Profile
-                li
-                    a(href="/users/logout")  Log Out
-                li
-                    a(href=`/users/${loggedInUser._id}`)
-                        if loggedInUser.avatarUrl === ""
-                            span 😀
-                        else
-                            img.header__avatar(src="/" + loggedInUser.avatarUrl)
+  div#header__menu__left
+    span(data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling")
+      i.fas.fa-bars
+    a(href="/")#main_logo
+        img(src="https://ecimg.cafe24img.com/pg692b46604935022/artplex/web/product/extra/big/20240820/5d88712e5ce3aa0492bcbea55fb2bba1.png")
+        span Pepe Tube
+  nav
+    ul
+      li#header__item
+        a(href="/search") Search
+      if loggedIn
+        li
+        button.navbar-toggler(
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasNavbar"
+          aria-controls="offcanvasNavbar"
+          aria-label="Toggle navigation"
+        )
+          span.navbar-toggler-icon#header__btn
+            i.fas.fa-bars
+        li#header__item
+          a(href=`/users/${loggedInUser._id}`)
+            if loggedInUser.avatarUrl === ""
+              span 😀
             else
-                li
-                    a(href="/join")  Join
-                li
-                    a(href="/login")  Login                        
+              img.header__avatar(src="/" + loggedInUser.avatarUrl)
+      else
+        li#header__item
+          a(href="/join") Join
+        li#header__item
+          a(href="/login") Login
+
+// 오프캔버스 콘텐츠
+.offcanvas.offcanvas-end(
+  tabindex="-1"
+  id="offcanvasNavbar"
+  aria-labelledby="offcanvasNavbarLabel"
+)
+  .offcanvas-header
+    h5.offcanvas-title#offcanvasNavbarLabel Menu
+    button.btn-close(type="button" data-bs-dismiss="offcanvas" aria-label="Close")
+  .offcanvas-body
+    a(href=`/users/${loggedInUser._id}`)
+      if loggedInUser.avatarUrl === ""
+        span 😀
+      else
+        img(src="/" + loggedInUser.avatarUrl)#header__avatar
+    ul.navbar-nav.justify-content-end.flex-grow-1.pe-3
+      li.nav-item
+        a.nav-link(href="/videos/upload") Upload Video
+      li.nav-item
+        a.nav-link(href=`/users/${loggedInUser._id}`) My Profile
+      li.nav-item
+        a.nav-link(href="/users/edit") Edit Profile
+      li.nav-item
+        a.nav-link(href="/users/logout") Log Out
+
+div.offcanvas.offcanvas-start(data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel")
+  div.offcanvas-header
+    h5.offcanvas-title(id="offcanvasScrollingLabel")
+        a(href="/")#main_logo
+            img(src="https://ecimg.cafe24img.com/pg692b46604935022/artplex/web/product/extra/big/20240820/5d88712e5ce3aa0492bcbea55fb2bba1.png")
+            span Pepe Tube
+    button.btn-close(type="button" data-bs-dismiss="offcanvas" aria-label="Close")
+  div.offcanvas-body
+    div
+    ul 
+      h3 My page
+      li#header__menu-list
+        i.fas.fa-history
+        a(href="#") History
+      li#header__menu-list  
+        i.fas.fa-list
+        a(href="/") Play List
+      li#header__menu-list
+        i.fas.fa-video
+        a(href="/") My Videos
+      li#header__menu-list  
+        i.fas.fa-clock
+        a(href="/") Watch Later
+      li#header__menu-list  
+        i.fas.fa-thumbs-up
+        a(href="/") Liked Videos
+      li#header__menu-list  
+        i.fas.fa-comment
+        a(href="/") Comments
+      li#header__menu-list  
+        i.fas.fa-cog
+        a(href="/") Settings
+    ul  
+        h3 Subscription
+        li#subscription
+            img(src="https://m.kukinews.com/data/kuk/image/2021/06/11/kuk202106110251.680x.0.jpg")
+            span LCK
+        li#subscription
+            img(src="https://yt3.googleusercontent.com/ytc/AIdro_kZGbEvWmB_2CZMcZVcCpjFsiQNVQZEehF8jinP6zlFJ7s=s160-c-k-c0x00ffffff-no-rj")
+            span 노마드 코더 Nomad Coders
+        li#subscription
+            img(src="https://yt3.googleusercontent.com/0c8g_z5PB-Kc7qAnLRX68l3C13HWdHpCJQHxiwRlgB1O0PFUpifJPS7cBg99UMRX4jdc3hEZIhE=s160-c-k-c0x00ffffff-no-rj")
+            span 힙으뜸
+

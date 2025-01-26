@@ -18,7 +18,15 @@ export const home = async (req, res) => {
 
 export const watch = async (req, res) => {
   const { id } = req.params;
-  const video = await Video.findById(id).populate("owner").populate("comments");
+  const video = await Video.findById(id)
+    .populate("owner")
+    .populate({
+      path: "comments",
+      populate: {
+        path: "owner",
+        select: "name avatarUrl",
+      },
+    });
   console.log(video);
   if (!video) {
     return res.status(400).render("404", { pageTitle: "Video not found" });
@@ -48,10 +56,12 @@ export const postEdit = async (req, res) => {
     user: { _id },
   } = req.session;
   const { title, description, hashtags } = req.body;
-  const video = await Video.exists({ _id: id });
+  const video = await Video.findById(id);
   if (!video) {
     return res.render("404", { pageTitle: "Video not found" });
   }
+  console.log("video.owner", video.owner);
+  console.log("_id", _id);
   if (String(video.owner) !== String(_id)) {
     req.flash("error", "Not authorized");
     return res.status(403).redirect("/");

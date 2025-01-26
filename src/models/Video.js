@@ -18,6 +18,8 @@ const videoSchema = new mongoose.Schema({
 videoSchema.static("formatHashtags", function (hashtags) {
   return hashtags
     .split(",")
+    .map((word) => word.trim())
+    .filter((word) => word !== "")
     .map((word) => (word.startsWith("#") ? word : `#${word}`));
 });
 

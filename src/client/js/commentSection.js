@@ -41,6 +41,7 @@ const handleSubmit = async (event) => {
   if (response.status === 201) {
     addComment(text, newCommentId);
   }
+  window.location.reload();
 };
 
 const handleDelete = async (event) => {

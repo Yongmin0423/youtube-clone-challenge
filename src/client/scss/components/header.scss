@@ -1,5 +1,5 @@
 header {
-  padding: 20px 50px;
+  padding: 20px 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -27,4 +27,80 @@ header {
     padding: 5px 10px;
     border-radius: 5px;
   }
+}
+
+#header__menu__left {
+  display: flex;
+  align-items: center;
+  span {
+    margin-right: 20px;
+  }
+}
+
+.offcanvas-start {
+  background-color: $bg;
+  color: white;
+  opacity: 0.95;
+}
+
+.offcanvas-body {
+  h3 {
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  li {
+    font-size: 15px;
+    margin-bottom: 5px;
+    i {
+      margin-right: 10px;
+    }
+  }
+}
+#header__menu__left {
+  span {
+    padding: 10px;
+  }
+  span:first-child:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+  }
+}
+
+.navbar-toggler {
+  padding: 10px;
+}
+
+.navbar-toggler:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+#header__menu-list {
+  padding: 10px;
+}
+
+#header__menu-list:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+#subscription {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+}
+
+#subscription:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
 }

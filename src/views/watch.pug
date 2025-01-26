@@ -21,36 +21,43 @@ block content
                     i.fas.fa-expand
     div
         h1#watch__title=video.title
-        i.fas.fa-eye  #{video.meta.views} #{video.meta.views ===1 ? "view" : "views"}
     div#video__info
-        p#watch__description=video.description
+        div
+            i.fas.fa-eye  #{video.meta.views} #{video.meta.views ===1 ? "view" : "views"}
+            span=  new Date(video.createAt).toDateString()
+            span=video.hashtags.join(", ")
+            div#watch__description
+                p=video.description
+            div#watch__User-info
+                img(src="/" + video.owner.avatarUrl)#watch__avatar
+                a(href=`/users/${video.owner._id}`)=video.owner.name
     div#video__menu
-        div#video__menu-left
+        if String(video.owner._id) === String(loggedInUser._id)
             a(href=`${video.id}/edit`)
                 i.fas.fa-cog
             a(href=`${video.id}/delete`)
                 i.fas.fa-trash
-        div#video__menu-right
-            p= new Date(video.createAt).toDateString()
-    div#watch__User-info
-        img(src="/" + video.owner.avatarUrl)#watch__avatar
-        a(href=`/users/${video.owner._id}`)=video.owner.name
 
-    div
-    if String(video.owner._id) === String(loggedInUser._id)    
+  
     div.video__comments
     if loggedIn
         div.video__comments
             form.video__comment-form#commentForm
-                textarea(cols="30", rows="10", placeholder="Write a nice comment...")
-                button Add Comment
+                div
+                    img(src="/" + loggedInUser.avatarUrl)#watch__avatar
+                    textarea(placeholder="Write a nice comment...")
+                div#commentForm__button
+                    button Add
     div.video_comments
         ul
             each comment in video.comments.reverse()
-                li.video__comment(data-id=comment._id)
-                    i.fas.fa-comment
-                    span  #{comment.text}
-                    if String(video.owner._id) === String(loggedInUser._id)
+                li.video__comment(data-id=comment._id)#comment
+                    div
+                        img(src="/" + comment.owner.avatarUrl)#watch__avatar
+                    div#comment__content
+                        span=comment.owner.name
+                        span  #{comment.text}
+                    if String(comment.owner._id) === String(loggedInUser._id)
                         span.deleteBtn ❌
 block script 
     script(src="/static/js/videoPlayer.js")
