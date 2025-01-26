@@ -53,9 +53,15 @@ const handleVolumeChange = (event) => {
 };
 
 const handleLoadedMetadata = () => {
-  totalTime.innerText = formatTime(Math.floor(video.duration));
-  timeline.max = Math.floor(video.duration);
+  if (!isNaN(video.duration) && video.duration > 0) {
+    totalTime.innerText = formatTime(Math.floor(video.duration));
+    timeline.max = Math.floor(video.duration);
+  } else {
+    // duration이 유효하지 않으면, 잠시 후 다시 시도
+    setTimeout(handleLoadedMetadata, 500);
+  }
 };
+
 const handleTimeUpdate = () => {
   currentTime.innerText = formatTime(Math.floor(video.currentTime));
   timeline.value = Math.floor(video.currentTime);

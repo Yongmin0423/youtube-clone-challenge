@@ -2,7 +2,7 @@ extends base
 
 block content
     div#videoContainer(data-id=video._id)
-        video(src="/" + video.fileUrl)
+        video(src=video.fileUrl)
         div#videoControls.videoControls
             div.videoControls__play
                 span#play.videoControls__playBtn
@@ -29,7 +29,7 @@ block content
             div#watch__description
                 p=video.description
             div#watch__User-info
-                img(src="/" + video.owner.avatarUrl)#watch__avatar
+                img(src=video.owner.avatarUrl)#watch__avatar
                 a(href=`/users/${video.owner._id}`)=video.owner.name
     div#video__menu
         if String(video.owner._id) === String(loggedInUser._id)
@@ -44,7 +44,7 @@ block content
         div.video__comments
             form.video__comment-form#commentForm
                 div
-                    img(src="/" + loggedInUser.avatarUrl)#watch__avatar
+                    img(src=loggedInUser.avatarUrl)#watch__avatar
                     textarea(placeholder="Write a nice comment...")
                 div#commentForm__button
                     button Add
@@ -53,7 +53,7 @@ block content
             each comment in video.comments.reverse()
                 li.video__comment(data-id=comment._id)#comment
                     div
-                        img(src="/" + comment.owner.avatarUrl)#watch__avatar
+                        img(src=comment.owner.avatarUrl)#watch__avatar
                     div#comment__content
                         span=comment.owner.name
                         span  #{comment.text}
