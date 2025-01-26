@@ -1,0 +1,58 @@
+extends base
+
+block content
+    div#videoContainer(data-id=video._id)
+        video(src="/" + video.fileUrl)
+        div#videoControls.videoControls
+            div.videoControls__play
+                span#play.videoControls__playBtn
+                    i.fas.fa-play
+                div.videoControls__time
+                    span#currenTime 00:00
+                    span  / 
+                    span#totalTime 00:00
+            input(type="range",step="1", value="0", min="0")#timeline.videoControls__timeline
+            div.videoControls__volume
+                input(type="range",step="0.1", value=0.5, min="0", max="1")#volume
+                span#mute
+                    i.fas.fa-volume-up
+            div
+                span#fullScreen
+                    i.fas.fa-expand
+    div
+        h1#watch__title=video.title
+        i.fas.fa-eye  #{video.meta.views} #{video.meta.views ===1 ? "view" : "views"}
+    div#video__info
+        p#watch__description=video.description
+    div#video__menu
+        div#video__menu-left
+            a(href=`${video.id}/edit`)
+                i.fas.fa-cog
+            a(href=`${video.id}/delete`)
+                i.fas.fa-trash
+        div#video__menu-right
+            p= new Date(video.createAt).toDateString()
+    div#watch__User-info
+        img(src="/" + video.owner.avatarUrl)#watch__avatar
+        a(href=`/users/${video.owner._id}`)=video.owner.name
+
+    div
+    if String(video.owner._id) === String(loggedInUser._id)    
+    div.video__comments
+    if loggedIn
+        div.video__comments
+            form.video__comment-form#commentForm
+                textarea(cols="30", rows="10", placeholder="Write a nice comment...")
+                button Add Comment
+    div.video_comments
+        ul
+            each comment in video.comments.reverse()
+                li.video__comment(data-id=comment._id)
+                    i.fas.fa-comment
+                    span  #{comment.text}
+                    if String(video.owner._id) === String(loggedInUser._id)
+                        span.deleteBtn ❌
+block script 
+    script(src="/static/js/videoPlayer.js")
+    if loggedIn
+        script(src="/static/js/commentSection.js")
